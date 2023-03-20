@@ -95,7 +95,7 @@ def single_game(cur_player):
         else:
             cur_player = 'X'
 
-print("Original ver:\nwww.askpython.com/\npython/examples/\ntic-tac-toe\n-using-python\nadapted to calc\nby Hamza")
+print("Original ver:\nwww.askpython.com/\npython/examples/\ntic-tac-toe\n-using-python\nadapted to calc\nby blabla_lab")
 try:
     gm=int(input)('''
     Gamemode:
