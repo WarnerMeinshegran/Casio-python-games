@@ -1,4 +1,4 @@
-# Casio-python-tools-and-games
+# Casio-python-games
 Games and tools I made for my casio calculator fx-9860GIII.
 ## Games
 ### Game 1
