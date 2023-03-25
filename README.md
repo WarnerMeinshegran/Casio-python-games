@@ -21,8 +21,8 @@ Games and tools I made for my casio calculator fx-9860GIII.
 ## Games
 ### TicTacToe
 a tictactoe game but for 2 players with no support for AI
-I DIDNT MAKE THIS GAME I ONLY MADE IT COMPATIBLE WITH THE CALCULATOR
-ORIGINAL VERSION: www.askpython.com/python/examples/tic-tac-toe-using-python
+I DIDNT MAKE THIS GAME I ONLY MADE IT COMPATIBLE WITH THE CALCULATOR.
+*ORIGINAL VERSION*: www.askpython.com/python/examples/tic-tac-toe-using-python
 ### Game 1
 Its simply rock paper scissors but with AI
 ### WhyCuz
