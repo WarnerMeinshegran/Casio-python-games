@@ -34,7 +34,7 @@ while True:
                 radius = diameter / 2
                 base_area = pi * radius**2
                 TSA = 4 * pi * radius**2
-                volume = 1.3333333333 * pi * radius**3 
+                volume = 1.3333333333 * pi * radius**3
             elif shape_type == 2:
                 # cylinder
                 height = float(input("Height of\nobject:"))
@@ -44,7 +44,7 @@ while True:
                 radius = diameter / 2
                 base_area = pi * radius**2
                 TSA = LSA + 2 * base_area
-                volume = base_area * height 
+                volume = base_area * height
             elif shape_type == 3:
                 # cone
                 slant = float(input("Slant of\ncone\n(referred to as 'l')\n:"))
@@ -55,7 +55,7 @@ while True:
                 base_area = pi * radius**2
                 TSA = LSA + pi * radius**2
                 volume = 0.3333333333 * base_area * height
-            
+
             print("""Results:
 Perimeter:{0}
 L.S.A:{1}
@@ -68,7 +68,7 @@ T.S.A:{4}""".format(Round(perimeter, 2),
                     Round(TSA, 2)))
             input("EXE TO PAGE2")
             print("""Results2:
-Volume:{0}""".format(Round(base_area)))
+Volume:{0}""".format(Round(volume,2)))
             input("EXE TO CONTINUE")
         elif base_type == 2:
             # Square
