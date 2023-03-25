@@ -50,4 +50,11 @@ calculates speed time distance
 ### m2StdFrm
 from slope form(y=mx+b) to standard form (x+y=b)
 ### TSAcalc (NOT FINISHED)
-Calculates total surface area.
+Calculates 
+Perimeter
+L.S.A
+Base area
+T.S.A
+Volume
+
+currently only sphere bases are supported
