@@ -13,7 +13,7 @@ Base types:
         perimeter: length + width
 """
 from math import pi
-#functions
+# functions
 def Round(x, y):
     try:
         return round(x, y)
@@ -34,7 +34,7 @@ while True:
                 radius = diameter / 2
                 base_area = pi * radius**2
                 TSA = 4 * pi * radius**2
-                voume=None
+                volume = 1.3333333333 * pi * radius**3 
             elif shape_type == 2:
                 # cylinder
                 height = float(input("Height of\nobject:"))
@@ -54,18 +54,18 @@ while True:
                 LSA = pi*slant*radius
                 base_area = pi * radius**2
                 TSA = LSA + pi * radius**2
-                volume = None
+                volume = 0.3333333333 * base_area * height
             
             print("""Results:
 Perimeter:{0}
 L.S.A:{1}
 Radius:{2}
 Base area:{3}
-T.S.A:{4}""".format(Round(perimeter,2),
-                    Round(LSA,2),
-                    Round(radius,2),
-                    Round(base_area,2),
-                    Round(TSA,2)))
+T.S.A:{4}""".format(Round(perimeter, 2),
+                    Round(LSA, 2),
+                    Round(radius, 2),
+                    Round(base_area, 2),
+                    Round(TSA, 2)))
             input("EXE TO PAGE2")
             print("""Results2:
 Volume:{0}""".format(Round(base_area)))
