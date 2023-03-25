@@ -85,7 +85,7 @@ show_last_letter=False
 user_tries=6
 tries=user_tries
 points=0
-points_for_level = 3
+points_for_level = 1
 level = 0
 gradual_difficulty=True
 difficulty_word_length = 3 # this will be intial word length
@@ -132,16 +132,15 @@ while True:
 
     print("LOADING...\nYou can always\nend a game by\npressing 1\n\n\n")
     win=False
-    #*levels require 3 points and then gradualy +1 point every time
+    #*levels require 3 points
     if points==points_for_level:
         level += 1
-        points_for_level +=1
-
+        points_for_level += level+1
 
     if not gradual_difficulty:
         word = choose(words)
     elif gradual_difficulty is True:
-        difficulty_word_length += points#determines the legth of the word, increase with levels, levels increase with points.
+        difficulty_word_length += level#determines the legth of the word, increase with levels, levels increase with points.
         while True:
             word = choose(words)
             if len(word) <= difficulty_word_length:
@@ -168,6 +167,7 @@ while True:
     while True:
         if win:
             break
+        print(word)
         print("Points:{0}\nTries:{2}\nLevel:{1}\n".format(points,level,tries,))
         print("".join(guessing_list))
         guess = str(input("Guess a letter:\n")).lower()
@@ -176,6 +176,7 @@ while True:
         if guess == "1":
             warn("YOU QUITED!\nThe word was\n{}\n\n".format(word))
             break
+
         elif len(guess) > 1:
             warn("Only one letter")
         elif guess.isdigit():
