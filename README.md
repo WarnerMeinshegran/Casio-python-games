@@ -35,14 +35,13 @@ without seeing the question.
 finally both question and answer will be revealed
 ### Word predict
 just like hangman in this game you have a certain amount of tries, your goal
-is to guess the word.There is a level system.
-#### wordpredict compressed
-Its same as the previous game but is smaller by using a minfier
+is to guess the word.
+This is the most updated game in this list
 #### wordpredict mini
 same as wordpredict compressed but:
 -less words to guess
 -no level system
--less updates
+-no updates
 
 ## Tools
 ### SDTcalc
