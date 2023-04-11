@@ -9,6 +9,8 @@ Games and tools I made for my casio calculator fx-9860GIII.
 * 1-2 player games
 	* Why,Cuz
 	* WordPredict 
+	* NumberGuess
+	
 ## Tools
 * Science
 	* physics
@@ -36,12 +38,18 @@ finally both question and answer will be revealed
 ### Word predict
 just like hangman in this game you have a certain amount of tries, your goal
 is to guess the word.
-This is the most updated game in this list
 #### wordpredict mini
-same as wordpredict compressed but:
+same as wordpredict but:
 -less words to guess
 -no level system
 -no updates
+-small size
+### NumberGuess
+1-2 player game.
+How to Play:
+A mathmatical equation is given, you need to find the result of this equation to find the hidden number
+This game's level system is not complete yet, but its playable
+
 
 ## Tools
 ### SDTcalc
