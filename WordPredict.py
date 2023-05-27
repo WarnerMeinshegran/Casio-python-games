@@ -1,6 +1,5 @@
-import math
+print("loading...")
 from random import choice as choose
-import random
 words = ['gate', 'history', 'stove', 'station', 'verse', 'selection', 'stretch', 'cow', 'kittens', 'rule', 
 'metal', 'heat', 'birthday', 'blade', 'hand', 'walk', 'territory', 'spring', 'afternoon', 'frog', 
 'noise', 'creator', 'bottle', 'toy', 'worm', 'self', 'oven', 'rest', 'purpose', 'limit', 'dirt', 
@@ -40,7 +39,13 @@ words = ['gate', 'history', 'stove', 'station', 'verse', 'selection', 'stretch',
 'jelly', 'quality', 'polish', 'stop', 'drink', 'manager', 'cloth', 'sky', 'change', 
 'punishment', 'tax', 'food', 'laugh', 'fall', 'expansion', 'belief', 'support', 'fiction', 
 'slip', 'cork', 'view', 'reason', 'force', 'form', 'bread', 'disgust', 'order', 'page', 
-'building', 'smile', 'part', 'pain', 'competition', "fat", "rat"]
+'building', 'smile', 'part', 'pain', 'competition'"sister","cigarette","cancer","courage","sample","application","writing",
+"aspect","accident","election","client","entertainment","conversation","mom","science","reflection","passenger","inspector","newspaper","instance","complaint",
+"distribution","oven","beer","response","version","two","teaching","resolution","tale","actor",
+"paper","people","guitar","fortune","cousin","stranger","negotiation","celebration","funeral","control","possibility","buyer","climate","president","trainer","investment","significance","week","selection",]
+
+LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
 
 main_menu="""WORD PREDICT!
 Level:{0} Pts:{3}
@@ -112,15 +117,15 @@ def load_save():
     points_for_level=int(save_code.split(",")[2])
     print("load save")
     print(points,level,user_tries,gradual_difficulty,show_first_letter,show_last_letter,points_for_level)
+
 tries=user_tries
-difficulty_word_length=3+level
+
 def save(do_prompt=False):
     # variables used for save instead of using original value of orginal variable
     save_gradual_difficulty = 1 if gradual_difficulty is True else 0
     save_show_first_letter = 1 if show_first_letter is True else 0
     save_show_last_letter = 1 if show_last_letter is True else 0
-    generated_save_code = "{0},{1}{2}{3}{4}{5},{6}".format(
-        points,
+    generated_save_code = "{0},{1}{2}{3}{4}{5},{6}".format(points,
         level,
         user_tries,
         save_gradual_difficulty,
@@ -155,12 +160,12 @@ while True:
                     user_input=int(input(settings_menu2.format(user_tries,gradual_difficulty)))
                     if user_input==1:
                         user_tries=int(input("\n\nGuessing Tries\n(default:6,min:1,\nmax:9):\n\n"))
-                        if user_tries>9:
+                        if user_input>9:
                             warn("You set\nGuessing Tries\nto more than 9\n\n\n")
-                        elif user_tries<=0:
+                        elif user_input<=0:
                             warn("You set\nGuessing Tries\nto less than 1\n\n\n")
                         else:
-                            tries=user_tries
+                            tries=user_input
                     elif user_input==2:
                         gradual_difficulty=toggle(gradual_difficulty)
                     elif user_input==3:
@@ -179,10 +184,12 @@ while True:
     except KeyError:
         continue
 
+    print("LOADING...\nYou can always\nend a game by\npressing 1\n\n\n")
     win=False
-    if points>=points_for_level:
+    #*levels require 3 points
+    if points==points_for_level:
         level += 1
-        points_for_level += math.ceil((level*1.3)+points)
+        points_for_level = points_for_level * 2 + 1
         difficulty_word_length += 1
 
     if not gradual_difficulty:
@@ -215,19 +222,18 @@ while True:
         if win:
             break
         print(word)
-        print("Points:{0} Tries:{2}\nLevel:{1}\nPress 1 to exit\n".format(points,level,tries))
+        print("Points:{0} Tries:{2}\nLevel:{1}\nPress 1 to quit game\n".format(points,level,tries,))
         print("".join(guessing_list))
         guess = str(input("Guess a letter:\n")).lower()
 
-        # error checking
         if guess == "1":
             warn("YOU QUITED!\nThe word was\n{}\n\n".format(word))
             break
 
         elif len(guess) > 1:
             warn("Only one letter")
-        elif guess.isdigit():
-            warn("type a word,\nnot a digit!")
+        elif not guess in LETTERS:
+            warn("You didnt type a letter!")
         
         if guess in word_in_a_list_form:
             indexes = [index for index in range(len(word_in_a_list_form)) if word_in_a_list_form[index] == guess]               
@@ -236,16 +242,7 @@ while True:
             if guessing_list == word_in_a_list_form:
                 warn("YOU DID IT!\nThe word was\n{}\n\n".format(word))
                 win=True
-                if tries == user_tries:
-                    reward = random.randint(1, 10) + 1
-                    if random.randint(1,100) == 1:
-                        warn("Are you the science\nteacher?? Anyway\nYour reward is\n{0} points!".format(reward))
-                    else:
-                        warn("You were able to\nguess word without\nmaking a wrong guess.\nThe reward is\n{0} points!".format(reward))
-                    points+=reward
-                    reward = 0
-                else:
-                    points+=1
+                points+=1
                 break
         else:
             print("WRONG")
