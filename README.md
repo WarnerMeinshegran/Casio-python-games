@@ -1,5 +1,6 @@
 # Casio-python-games
 Games and tools I made for my casio calculator fx-9860GIII.
+You can play these games on any calculator that supports python.
 
 ## Games
 * 2 player games
@@ -10,6 +11,8 @@ Games and tools I made for my casio calculator fx-9860GIII.
 	* Why,Cuz
 	* WordPredict 
 	* NumberGuess
+* 3+ player games
+	* Imitator
 	
 ## Tools
 * Science
@@ -17,7 +20,7 @@ Games and tools I made for my casio calculator fx-9860GIII.
 		* SDTcalc
 * math
 	* m2stdfrm
-	* TSAcalc
+	* TSAcalc (Discontinued)
   
 # Descreption
 ## Games
@@ -67,5 +70,7 @@ same as imitator but the game is smaller in size and will have few to no updates
 calculates speed, time, and distance
 ### m2StdFrm
 from slope form(y=mx+b) to standard form (x+y=b)
+### TSA calc (discontinue, will recive very few to no updates)
+calulate surface area and volume
 
 currently only sphere bases are supported
