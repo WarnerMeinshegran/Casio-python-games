@@ -44,24 +44,28 @@ same as wordpredict but:
 -no level system
 -no updates
 -small size
-### NumberGuess
+### NumberGuess 
 1-2 player game.
 How to Play:
 A mathmatical equation is given, you need to find the result of this equation to find the hidden number
 This game's level system is not complete yet, but its playable
+### Imitator
+Imitator, a 3+ player game
+A player click the starts button and passes the calc to the said person(specified by game)
+The reciving player clicks the EXE button and the game will choose if he 
+is the one that should imitate that he knows what are they talking about,
+or if he knows what to talk about. this is repeated to all players.
+The players ask questions to each others. the game will tell who to question whom.
+Finally when the game finishes the players vote to who they think is imitating.
+after voting the imitator will try to guess the subject they were talking about
+#### ImitatorMini
+same as imitator but the game is smaller in size and will have few to no updates
 
 
 ## Tools
 ### SDTcalc
-calculates speed time distance
+calculates speed, time, and distance
 ### m2StdFrm
 from slope form(y=mx+b) to standard form (x+y=b)
-### TSAcalc (NOT FINISHED)
-Calculates 
-Perimeter
-L.S.A
-Base area
-T.S.A
-Volume
 
 currently only sphere bases are supported
