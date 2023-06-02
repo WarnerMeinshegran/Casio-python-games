@@ -1,48 +1,39 @@
-print("loading...")
 from random import choice as choose
-words = ['gate', 'history', 'stove', 'station', 'verse', 'selection', 'stretch', 'cow', 'kittens', 'rule', 
-'metal', 'heat', 'birthday', 'blade', 'hand', 'walk', 'territory', 'spring', 'afternoon', 'frog', 
-'noise', 'creator', 'bottle', 'toy', 'worm', 'self', 'oven', 'rest', 'purpose', 'limit', 'dirt', 
-'pancake', 'smoke', 'seed', 'army', 'boy', 'friction', 'yard', 'pull', 'country', 'meal', 
-'society', 'aunt', 'girls', 'car', 'observation', 'pail', 'ring', 'scarf', 'trains', 'suggestion', 
-'form', 'pencil', 'coal', 'texture', 'drain', 'receipt', 'liquid', 'deer', 'chalk', 'porter', 
-'statement', 'impulse', 'person', 'business', 'loss', 'trick', 'touch', 'sack', 'cabbage', 
-'wilderness', 'partner', 'competition', 'instrument', 'minute', 'holiday', 'mitten', 
-'morning', 'poison', 'stone', 'hammer', 'end', 'pie', 'knowledge', 'mind', 'dad', 'fire', 
-'morning', 'winter', 'fireman', 'step', 'sticks', 'chin', 'grape', 'can', 'rake', 'spoon', 
-'treatment', 'weather', 'death', 'porter', 'queen', 'tent', 'look', 'bone', 'shelf', 'amount', 
-'bat', 'beds', 'sock', 'advertisement', 'blow', 'chickens', 'wall', 'toothpaste', 'flavor', 
-'noise', 'lake', 'ray', 'fear', 'memory', 'skirt', 'bucket', 'bridge', 'basketball', 'bear', 
-'crook', 'toothbrush', 'cause', 'cover', 'train', 'reaction', 'fuel', 'quill', 'dogs', 'unit', 
-'library', 'chance', 'scent', 'guide', 'committee', 'sign', 'degree', 'slave', 'creature', 
-'advice', 'iron', 'week', 'sofa', 'trade', 'country', 'health', 'shape', 'sneeze', 'wealth', 
-'land', 'tray', 'smoke', 'cave', 'boat', 'stocking', 'person', 'notebook', 'bell', 'rain', 'bit', 
-'actor', 'animal', 'drop', 'throne', 'smash', 'songs', 'appliance', 'sound', 'coach', 'day', 
-'cushion', 'juice', 'month', 'verse', 'thaw', 'arrive', 'attempt', 'employ', 'glow', 'order', 
-'realize', 'mate', 'untidy', 'arrange', 'face', 'complain', 'last', 'milk', 'multiply', 'live', 
-'bat', 'rescue', 'found', 'brake', 'film', 'compete', 'name', 'sip', 'mix', 'count', 'escape', 
-'bump', 'kneel', 'mourn', 'plant', 'join', 'grab', 'rot', 'comb', 'stain', 'shiver', 'store', 
-'bolt', 'beg', 'glue', 'miss', 'remind', 'chase', 'list', 'nail', 'stir', 'offer', 'jail', 
-'imagine', 'interest', 'develop', 'command', 'long', 'reply', 'head', 'applaud', 'divide', 
-'wipe', 'invent', 'attack', 'place', 'compare', 'carve', 'tug', 'allow', 'wander', 'shrug', 
-'melt', 'gaze', 'lick', 'fit', 'unlock', 'flow', 'reject', 'charge', 'supply', 'concern',
-'undress', 'inform', 'wonder', 'provide', 'flower', 'suggest', 'camp', 'wobble', 'smell', 
-'influence', 'wail', 'kick', 'radiate', 'support', 'reduce', 'increase', 'hunt', 'trip', 'moan', 
-'point', 'memorize', 'encourage', 'understanding', 'communication', 'recommendation',
-'administration', 'entertainment', 'responsibility', 'transportation', 'establishment', 
-'differentiate', 'unaccountable', 'knowledgeable', 'disillusioned', 'environmental', 
-'heartbreaking', 'dysfunctional', 'psychological', 'sophisticated', 'lackadaisical', 
-'materialistic', 'administrative', 'overconfident', 'comprehensive', 'scintillating',
-'education', 'sense', 'person', 'apparatus', 'level', 'mind', 'cook', 'twist', 'impulse',
-'night', 'trouble', 'doubt', 'expert', 'profit', 'opinion', 'hour', 'canvas', 'destruction', 
-'stretch', 'smoke', 'soup', 'existence', 'discussion', 'guide', 'limit', 'trick', 'wine', 
-'jelly', 'quality', 'polish', 'stop', 'drink', 'manager', 'cloth', 'sky', 'change', 
-'punishment', 'tax', 'food', 'laugh', 'fall', 'expansion', 'belief', 'support', 'fiction', 
-'slip', 'cork', 'view', 'reason', 'force', 'form', 'bread', 'disgust', 'order', 'page', 
-'building', 'smile', 'part', 'pain', 'competition'"sister","cigarette","cancer","courage","sample","application","writing",
-"aspect","accident","election","client","entertainment","conversation","mom","science","reflection","passenger","inspector","newspaper","instance","complaint",
-"distribution","oven","beer","response","version","two","teaching","resolution","tale","actor",
-"paper","people","guitar","fortune","cousin","stranger","negotiation","celebration","funeral","control","possibility","buyer","climate","president","trainer","investment","significance","week","selection",]
+from random import randint as random_number
+words = ['car', 'ray', 'mix', 'sip', 'rot', 'pie', 'boy', 'toy', 'sky', 'beg', 'can', 'tug', 'end', 'bit', 'tax', 'mom', 'fit', 
+'cow', 'dad', 'bat', 'two', 'day', 'sign', 'cook', 'mate', 'cork', 'wall', 'beer', 'ring', 'milk', 'mind', 'stir', 'step', 
+'thaw', 'long', 'fall', 'jail', 'glue', 'pain', 'sock', 'kick', 'meal', 'rake', 'hand', 'rain', 'coal', 'self', 'drop',
+'hunt', 'beds', 'oven', 'iron', 'melt', 'rest', 'sofa', 'deer', 'lake', 'part', 'view', 'lick', 'loss', 'camp', 'glow', 
+'bolt', 'fire', 'army', 'comb', 'pail', 'join', 'miss', 'head', 'yard', 'moan', 'film', 'wail', 'wine', 'flow', 'aunt', 
+'rule', 'face', 'cave', 'bear', 'stop', 'bone', 'wipe', 'tent', 'nail', 'week', 'land', 'fear', 'slip', 'walk', 'bump',
+'look', 'frog', 'gaze', 'heat', 'boat', 'seed', 'pull', 'food', 'blow', 'list', 'tray', 'sack', 'unit', 'soup', 'fuel',
+'dirt', 'worm', 'dogs', 'tale', 'name', 'chin', 'bell', 'hour', 'gate', 'grab', 'page', 'trip', 'live', 'form', 'last', 
+'carve', 'blade', 'allow', 'metal', 'noise', 'paper', 'girls', 'cloth', 'slave', 'offer', 'order', 'shape', 'reply', 
+'buyer', 'plant', 'touch', 'night', 'spoon', 'kneel', 'queen', 'grape', 'train', 'store', 'juice', 'chalk', 'stone', 
+'doubt', 'point', 'verse', 'smell', 'skirt', 'shrug', 'drain', 'drink', 'quill', 'jelly', 'sense', 'trick', 'cover', 
+'smash', 'smoke', 'cause', 'actor', 'chase', 'shelf', 'scent', 'brake', 'limit', 'sound', 'crook', 'stain', 'death', 
+'month', 'songs', 'coach', 'laugh', 'level', 'mourn', 'force', 'bread', 'found', 'stove', 'guide', 'scarf', 'count', 
+'trade', 'smile', 'place', 'twist', 'employ', 'aspect', 'people', 'sneeze', 'winter', 'bucket', 'flower', 'spring', 
+'reason', 'degree', 'reduce', 'canvas', 'arrive', 'polish', 'cousin', 'advice', 'liquid', 'bottle', 'health', 'wander',
+'belief', 'inform', 'amount', 'rescue', 'wonder', 'animal', 'shiver', 'cancer', 'reject', 'person', 'minute', 'mitten',
+'remind', 'expert', 'chance', 'sample', 'poison', 'memory', 'sister', 'guitar', 'flavor', 'unlock', 'divide', 'wobble', 
+'throne', 'escape', 'untidy', 'client', 'sticks', 'profit', 'wealth', 'change', 'bridge', 'hammer', 'attack', 'charge', 
+'trains', 'pencil', 'porter', 'invent', 'supply', 'receipt', 'undress', 'weather', 'suggest', 'stretch', 'trainer', 
+'pancake', 'purpose', 'library', 'support', 'fiction', 'history', 'applaud', 'morning', 'compete', 'develop', 'version', 
+'compare', 'country', 'cushion', 'writing', 'concern', 'manager', 'opinion', 'radiate', 'creator', 'partner', 'imagine', 
+'fireman', 'station', 'trouble', 'realize', 'fortune', 'society', 'courage', 'attempt', 'texture', 'disgust', 'holiday', 
+'quality', 'provide', 'arrange', 'command', 'climate', 'kittens', 'impulse', 'science', 'control', 'cabbage', 'funeral',
+'friction', 'creature', 'complain', 'accident', 'stranger', 'birthday', 'increase', 'instance', 'multiply', 'teaching',
+'interest', 'response', 'stocking', 'notebook', 'chickens', 'building', 'reaction', 'election', 'business', 'memorize', 
+'expansion', 'cigarette', 'knowledge', 'appliance', 'encourage', 'afternoon', 'existence', 'passenger', 'complaint', 
+'territory', 'selection', 'newspaper', 'president', 'committee', 'inspector', 'treatment', 'apparatus', 'statement', 
+'influence', 'education', 'basketball', 'instrument', 'wilderness', 'resolution', 'investment', 'reflection', 'punishment',
+'toothpaste', 'suggestion', 'toothbrush', 'discussion', 'celebration', 'competition', 'observation', 'negotiation', 
+'possibility', 'destruction', 'application', 'conversation', 'significance', 'distribution', 'establishment', 
+'unaccountable', 'overconfident', 'psychological', 'environmental', 'disillusioned', 'comprehensive', 'entertainment', 
+'lackadaisical', 'advertisement', 'communication', 'materialistic', 'knowledgeable', 'scintillating', 'heartbreaking', 
+'differentiate', 'understanding', 'dysfunctional', 'sophisticated', 'administration', 'recommendation', 
+'responsibility', 'transportation', 'administrative']
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
@@ -83,10 +74,7 @@ def warn(text):
     input("PRESS EXE")
 
 def toggle(x):
-    if x:
-        return False
-    else:
-        return True
+    return not x
 
     
 
@@ -101,8 +89,8 @@ difficulty_word_length = 3 # this will be intial word length
 def load_save():
     try:
         save_code=str(input("Save code:\n"))
-        load_points=save_code.split(",")[0:1]
-        
+        load_points = save_code.split(",")[:1]
+
         save_code_in_list_form=list(save_code.split(",")[1])
         print(save_code_in_list_form)
     except ValueError:
@@ -111,9 +99,9 @@ def load_save():
     points=int(load_points[0])
     level=int(save_code_in_list_form[0])
     user_tries=int(save_code_in_list_form[1])
-    gradual_difficulty=True if save_code_in_list_form[2] == "1" else False
-    show_first_letter=True if save_code_in_list_form[3] == "1"else False
-    show_last_letter=True if save_code_in_list_form[4] == '1' else False
+    gradual_difficulty = save_code_in_list_form[2] == "1"
+    show_first_letter = save_code_in_list_form[3] == "1"
+    show_last_letter = save_code_in_list_form[4] == '1'
     points_for_level=int(save_code.split(",")[2])
     print("load save")
     print(points,level,user_tries,gradual_difficulty,show_first_letter,show_last_letter,points_for_level)
@@ -177,7 +165,7 @@ while True:
                             warn("Wrong save code")
                     elif user_input==0:
                         continue
-                
+
     except ValueError:
         warn("Only Numbers!")
         continue
@@ -201,17 +189,13 @@ while True:
                 break
             else:
                 continue
-            
-            
-    
+
+
+
     tries=user_tries
-    word_in_a_list_form=[]
-    for i in word:
-        word_in_a_list_form.append(i)
-    guessing_list = []
+    word_in_a_list_form = list(word)
     wrong_words_guessed = []
-    for i in word_in_a_list_form:
-        guessing_list.append("_")
+    guessing_list = ["_" for _ in word_in_a_list_form]
     if show_first_letter:
         guessing_list[0] = word_in_a_list_form[0]
     if show_last_letter:
@@ -221,34 +205,41 @@ while True:
     while True:
         if win:
             break
-        print(word)
+       # print(word)
         print("Points:{0} Tries:{2}\nLevel:{1}\nPress 1 to quit game\n".format(points,level,tries,))
         print("".join(guessing_list))
         guess = str(input("Guess a letter:\n")).lower()
 
         if guess == "1":
-            warn("YOU QUITED!\nThe word was\n{}\n\n".format(word))
+            warn("YOU QUITED!\nThe word was\n{word}\n\n".format(word=word))
             break
 
         elif len(guess) > 1:
             warn("Only one letter")
-        elif not guess in LETTERS:
+        elif guess not in LETTERS:
             warn("You didnt type a letter!")
-        
+
         if guess in word_in_a_list_form:
-            indexes = [index for index in range(len(word_in_a_list_form)) if word_in_a_list_form[index] == guess]               
+            indexes = [index for index in range(len(word_in_a_list_form)) if word_in_a_list_form[index] == guess]
             for i in indexes:
                 guessing_list[i] = guess
             if guessing_list == word_in_a_list_form:
-                warn("YOU DID IT!\nThe word was\n{}\n\n".format(word))
+                warn("YOU DID IT!\nThe word was\n{word}\n\n".format(word=word))
+                if tries == user_tries:
+                    # no error while guessing
+                    extra_points = random_number(1, abs(points//2)+1) * level
+                    if extra_points == 0:extra_points = 1
+                    points += extra_points
+                    warn("You guessed the word\nwithout any tries!\nYou got extra {0}\npoint(s), Goodjob!".format(extra_points))
+
                 win=True
                 points+=1
                 break
         else:
             print("WRONG")
             if tries <= 0:
-                warn("YOU LOSE!\nThe word was\n{}\n\n".format(word))
+                warn("YOU LOSE!\nThe word was\n{word}\n\n".format(word=word))
                 break
-            elif not tries <=0 and not guess in wrong_words_guessed:
+            elif guess not in wrong_words_guessed:
                 tries -= 1
                 wrong_words_guessed.append(guess)
