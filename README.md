@@ -67,10 +67,10 @@ same as imitator but the game is smaller in size and will have few to no updates
 
 ## Tools
 ### SDTcalc
-calculates speed, time, and distance
+calculates speed, time, and distance. not made by me, credits are in the code
 ### m2StdFrm
 from slope form(y=mx+b) to standard form (x+y=b)
-### TSA calc (discontinue, will recive very few to no updates)
+### TSA calc
 calulate surface area and volume
 
 currently only sphere bases are supported
