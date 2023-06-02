@@ -1,4 +1,10 @@
 from random import choice as choose
+from random import randint
+
+# change this to big number if your calc is faster than fx-9860giii
+WAIT_TIME = 800 # this should take one second.
+# ^^^ for no fake loading set this to one 
+
 AI_question_list=["go to university?","spend lesstime on\nsocial media?",
 "start eating\nhealthy food?","social media is bad",
 "take that many\nsubjects in school?","wear a uniform when\nwe go to school?",
@@ -8,7 +14,24 @@ AI_question_list=["go to university?","spend lesstime on\nsocial media?",
 "glue doesnt stick\ninside the bottle","pizzas are round but\nnot there boxes?",
 "do you like\nspicy food?","musics are soothing?","do you want to\nbe successful?",
 "teachers are\nalways right","you stay too much\non your phone",
-"schools were invented","why iPhones are\nexpensive?", "why android is good?"]
+"schools were invented","iPhones are\nexpensive?", "android is good?", "you are stupid?", "you are nerd?"]
+AI_answer_list=["it's important",
+"it makes difference",
+"we need to suffer",
+"I'm bored",
+"I can't think reason",
+"I'm feeling generous",
+"I'm a good sport",
+"I have nerd powers",
+"I can.",
+"why not?",
+"it's funny.",
+"it's stupid.",
+"it's pointless.",
+"it's a waste of time",
+"I don't care",
+"I'm crazy",
+"I'm weird",]
 main_menu="""
 Why? Because.
 1.Start Game
@@ -84,12 +107,22 @@ while True:
                 # Singleplayer
                 '''
                 Ai will basiclly just pick a 
-                random question
+                random question/ answer
                 from a list and then the player 
                 will have to answer.
                 '''
-                question=choose(AI_question_list)
-                answer=str(input(answer_menu))
+                if randint(1,2) == 1:
+                    question=choose(AI_question_list)
+                    print("\n\n\nAI is thinking\n of a question..") # i made this fake loading so players know what the ai is doing.
+                    for i in range(0, WAIT_TIME*2):
+                        pass
+                    answer=str(input(answer_menu))
+                else:
+                    question=str(input(question_menu))
+                    print("\n\n\nAI is thinking\nof a answer..")
+                    for i in range(0, WAIT_TIME*2):
+                        pass
+                    answer=choose(AI_answer_list)
                 input("\nIts now time\nto display both\nquestion and\nanswer!\npress EXE to\nreveal...")
                 input(reveal_menu.format(question,answer))
                 continue
