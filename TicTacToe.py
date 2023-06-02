@@ -96,21 +96,8 @@ def single_game(cur_player):
             cur_player = 'X'
 
 print("Original ver:\nwww.askpython.com/\npython/examples/\ntic-tac-toe\n-using-python\nadapted to calc\nby blabla_lab")
-try:
-    gm=int(input)('''
-    Gamemode:
-    1=Player vs AI
-    2=Player vs Player
-    Choose gamemode:''')
-    if gm > 2:
-        raise ValueError
-except ValueError:
-    print("Only numbers 1 and 2")
 player1 = input("Plr1 name:")
-if gm==2:
-    player2="AI"
-else:    
-    player2 = input("Plr2 name:")
+player2 = input("Plr2 name:")
 
 # Stores the player who chooses X and O
 cur_player = player1
