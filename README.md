@@ -62,7 +62,7 @@ The players ask questions to each others. the game will tell who to question who
 Finally when the game finishes the players vote to who they think is imitating.
 after voting the imitator will try to guess the subject they were talking about
 #### ImitatorMini
-same as imitator but the game is smaller in size and will have few to no updates
+same as imitator but the game is smaller in size and will have fewer updates
 
 
 ## Tools
