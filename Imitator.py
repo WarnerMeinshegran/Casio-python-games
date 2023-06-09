@@ -38,7 +38,7 @@ from random import choice as choose
 NAME = "Imitator"
 VERSION = 1.3
 CREATION_DATE = "30/May/2023"
-LAST_UPDATE_DATE = "1/June/2023"
+
 
 ANIMALS = {
     "Dog": "A loyal animal, often a pet.",
