@@ -72,5 +72,12 @@ calculates speed, time, and distance. not made by me, credits are in the code
 from slope form(y=mx+b) to standard form (x+y=b)
 ### TSA calc
 calulate surface area and volume
-
 currently only sphere bases are supported
+
+# How to install
+https://github.com/blabla-labALT/Casio-python-games/assets/92992442/5b4cb354-81b6-4aff-862b-d8dd22f0809c
+
+
+
+
+
