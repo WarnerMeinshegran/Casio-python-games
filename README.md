@@ -3,8 +3,6 @@ Games and tools I made for my casio calculator fx-9860GIII.
 You can play these games on any calculator that supports python.
 
 ## Games
-* 2 player games
-	* Tic-tac-toe
 * 1Player games
 	* Game1
 * 1-2 player games
@@ -24,10 +22,6 @@ You can play these games on any calculator that supports python.
   
 # Descreption
 ## Games
-### TicTacToe
-a tictactoe game but for 2 players with no support for AI
-I DIDNT MAKE THIS GAME I ONLY MADE IT COMPATIBLE WITH THE CALCULATOR.
-*ORIGINAL VERSION*: www.askpython.com/python/examples/tic-tac-toe-using-python
 ### Game 1
 Its simply rock paper scissors but with AI
 ### WhyCuz
