@@ -2,6 +2,15 @@
 Games and tools I made for my casio calculator fx-9860GIII.
 You can play these games on any calculator that supports python.
 
+## Mini version of game
+the are some mini versions of some games, these versions focus on using the least space not the least cpu/ram usage.
+Things to note when using mini versions:
+- code is minified by a minifier which means the code will be hard to read
+- some features are removed like setting
+- some feature are limited like for example wordpredict mini will have less word to guess
+
+
+
 ## Games
 * 1Player games
 	* Game1
