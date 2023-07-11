@@ -3,11 +3,6 @@ def clr_scrn():
     '''clears screen by making new lines'''    
     print("\n"*7)
 
-
-
-
-
-
 def add_line_breaks(string, every=20):
     """
     This function takes a string and puts "/n" every 20 letters.
@@ -56,16 +51,21 @@ def ask(question, ans = None, auto_break_lines = True, auto_break_lines_every = 
     Returns:
         str: the answer choosen not the index
     '''    
-    if ans is None:
-        ans = ["yes","no"]
-    while True:
-        
-        if prompt:warn("{question}\n\npress exe".format(question=question), auto_break_lines, auto_break_lines_every)
-        else:print(add_line_breaks(question))
+    if ans is None:ans = ["yes","no"]
 
-        print("-", end="")
-        try: user_input = int(input("{}\n".format("\n-".join(ans))))
-        except (ValueError,TypeError): continue
+    while True:
+        clr_scrn()
+        if prompt:warn("".format(question=question), auto_break_lines, auto_break_lines_every)
+        else:
+            if auto_break_lines:print(add_line_breaks(question, auto_break_lines_every))
+            else:print(question)
+
+
+        for i in range(len(ans)):
+            print("{number}) {item}".format(number=i+1, item=ans[i]))
+
+        try:user_input = int(input())
+        except (TypeError, ValueError): continue
 
         try: user_input -= 1
         except TypeError: continue
