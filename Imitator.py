@@ -8,7 +8,7 @@ Finally when the game finishes the players vote to who they think is imitating.
 after voting the imitator will try to guess the subject they were talking about
 
 useful info:
--when adding player type 1qa as a player name to add to add 3 dummy players
+-when adding player type 1qa as a player name to add 3 dummy players
 -batch add names by adding comma between every name(example: Noah,Hamed,Ali)
 while in questions menu type 1 then enter to quit game
 """
