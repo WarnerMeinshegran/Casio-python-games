@@ -29,14 +29,27 @@ removed roles list as it is useless
 imitator assist an option that makes the game  bit easier for the imitator
 the random choosing will now have less duplicates
 quit game feature
+
+1.4
+fixed crash when typing text instead of a number
+improved menus
+    |_players
+    |_credits
+    |_settings
+    |_role
+    |_questions
+removed unused menus
+    |_vote (unused)
+    |_remove player (replaced)
 """
 
 
 from random import randint
 from random import choice as choose
+from String_methodes import *
 
 NAME = "Imitator"
-VERSION = 1.3
+VERSION = 1.4
 CREATION_DATE = "30/May/2023"
 
 
@@ -110,109 +123,7 @@ OBJECTS = {
 }
 
 
-def clr_scrn():
-    '''clears screen by making new lines'''    
-    print("\n"*7)
 
-
-def _int(x): 
-    try: int(x) 
-    except (ValueError, TypeError): return None
-    else: return int(x)
-
-def _str(x): 
-    try: str(x) 
-    except (ValueError, TypeError): return None
-    else: return str(x)
-
-
-
-def int_input(message):
-    while True:
-        z = input(message)
-        if z is None or z.strip() == "":
-            print("Please enter a number")
-            clr_scrn()
-            continue
-        return _int(z)
-
-
-def str_input(message):
-    while True:
-        z = input(message)
-        if z is None or z.strip() == "":
-            print("Please enter text")
-            clr_scrn()
-            continue
-        return _str(z)
-
-
-def add_line_breaks(string, every=20):
-    """
-    This function takes a string and puts "/n" every 20 letters.
-
-    Args:
-      string: The string to add line breaks to.
-      every: break line every number of letters
-
-    Returns:
-      A new string with line breaks added every 20 letters.
-    """
-    string = string.strip()
-
-    new_string = ""
-    for i in range(len(string)):
-        if i % every == 0: # if index is divisable by 20
-            new_string += "\n" if string[i] in [" ", ".", ","] else "-\n"
-        new_string += string[i]
-    result = "\n".join(new_string.strip().split("\n")).strip()
-    result2 = [i.strip() for i in result.split("\n")]
-    return "\n".join(result2)
-
-
-def warn(message, auto_break_lines = True, auto_break_lines_every= 20):
-    '''Prints the given message ans waits for the user to press enter
-
-    Args:
-        message (str): the message to display
-        auto_break_lines (bool, optional): if True the message will have a break line automatically each 20 letters. Defaults to True.
-    '''    
-    clr_scrn()
-    if auto_break_lines: s = input(add_line_breaks(message, auto_break_lines_every))
-    else:s = input(message)
-    clr_scrn()
-    return s
-
-def ask(question, ans = None, auto_break_lines = True, auto_break_lines_every = 20, prompt = True):
-    '''just like warn but instead asks the user for an input of number like choosing an option
-
-    Args:
-        question (str): the question to ask
-        ans (list, optional): an list of all answers (recommended max: 3-4 answers). Defaults to ["yes","no"].
-        auto_break_lines (bool, optional): if True the message will have a break line automatically each 20 letters. Defaults to True.
-
-    Returns:
-        str: the answer choosen not the index
-    '''    
-    if ans is None:
-        ans = ["yes","no"]
-    while True:
-        
-        if prompt:warn("{question}\n\npress exe".format(question=question), auto_break_lines, auto_break_lines_every)
-        else:print(add_line_breaks(question))
-
-        print("-", end="")
-        try: user_input = int(input("{}\n".format("\n-".join(ans))))
-        except (ValueError,TypeError): continue
-
-        try: user_input -= 1
-        except TypeError: continue
-
-        if user_input < 0:
-            continue
-        clr_scrn()
-        try: return ans[user_input]
-        except IndexError: continue
 
 
 def check_name(name, check_comma = True):
@@ -256,15 +167,17 @@ gameplay effects:
 players = []
 PLAYER_NAME_ALLOWED_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ".", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-MAIN_MENU = """{0}
+MAIN_MENU = """{0}!
 1.Play
 2.Players
 3.Settings
 ----0:Quit----
 """.format(NAME)
-PLAYERS_MENU = """Plrs:{0}
--1.add 2.back 3.rmv
-4.all plrs-
+PLAYERS_MENU = """Manage players
+-1.Add 
+-2.Back 
+-3.Remove
+-4.View players
 """
 SETTINGS_MENU = """Settings
 1.No. questions: {0}
@@ -273,52 +186,54 @@ SETTINGS_MENU = """Settings
 {1}
 ----(0:cancel)----
 """
-ADD_PLAYER_MENU = """Whats the name
-of the player you
-want to add?
-seperate names by ','
+ADD_PLAYER_MENU = """Type the name of
+the player to add.
+
+Seperate names by ','
 to batch add names
--(1:cancel)-
-"""
-REMOVE_PLAYER_MENU = """{}
-Name of plr to rmv:
 -(1:cancel)-
 """
 ROLE_MENU = """{0}
 You are an:
 {1}.
 {2}
-dont tell anyone!
-press exe to continue"""
+Dont tell anyone!
+press EXE"""
 QUESTION_MENU = """Questions({0}/{1})
 Hey {2},
 ask {3}.
-when done press EXE"""
-VOTE_MENU = """Hey {0},
-who's imitating?
-{1}"""
+Done? press exe"""
 CREDITS_MENU="""Credits
 {game_name} {version}
 by blabla_lab (H.A)
-Thanks for playing.
-""".format(game_name = NAME, version=VERSION)
+Good luck,
+{role}
+""".format(game_name = NAME, version=VERSION, role=choose(["Imitator", "Innocent"]))
 
 
 invalid = False
 while True:
     vote=[]
     clr_scrn()
-    user_input = int_input(MAIN_MENU)
+    
+    try:user_input = int(input(MAIN_MENU))
+    except (TypeError, ValueError): continue
+
+
     if user_input == 0:
         clr_scrn()
         raise SystemExit("Quit")
     if user_input == 3:
         # settings
         clr_scrn()
-        user_input = int_input(SETTINGS_MENU.format(no_of_questions, imitator_assist))
+        
+        
+        try:user_input = int(input(SETTINGS_MENU.format(no_of_questions, imitator_assist)))
+        except (TypeError, ValueError): continue
+        
         if user_input == 1:
             clr_scrn()
-            try:user_input = int_input("No. of questions to be asked:")
+            try:user_input = int(input(add_line_breaks("No. of questions to be asked:")))
             except ValueError: continue
             if user_input < 0 or user_input > 50: continue
             no_of_questions = user_input
@@ -338,26 +253,26 @@ while True:
         # add player
         while True:
             clr_scrn()
-            user_input = int_input(PLAYERS_MENU.format("\n".join(players)))
+
+            try:user_input = int(input(PLAYERS_MENU))
+            except (TypeError, ValueError): continue
+            
             if user_input == 2 or user_input is None:
                 break
-                
             elif user_input == 4:
                 clr_scrn()
-                warn("\n".join(players), False)
+                view_list(players, title="--Players--", readonly=True)
             elif user_input == 3:
                 clr_scrn()
-                user_input = ask("type the index of the player to remove", players)
-                if user_input == "1":
-                    warn("Player name not\nremoved.\nPress EXE", False)
-                    continue
-                players.remove(user_input)
-                warn("removed player:\n{}".format(user_input))
+                user_input = view_list(players, title="--Remove Player--")
+                try:players.remove(user_input)
+                except IndexError: warn("Player not found")
+                else:warn("Removed player:\n{}".format(user_input))
 
 
             elif user_input == 1:
                 clr_scrn()
-                new_player_name = str_input(ADD_PLAYER_MENU).strip().replace("  ", " ")
+                new_player_name = input(ADD_PLAYER_MENU).strip().replace("  ", " ")
                 if new_player_name == "1" or user_input is None:
                     warn("Player name not\nadded.\nPress EXE", False)
                     continue
@@ -385,7 +300,7 @@ while True:
         quit_game = False
         # play
         if len(players) <= 2:
-            warn("not enough players")
+            warn("The game needs at least 3 players to start.")
             continue
 
         # the game
@@ -405,7 +320,7 @@ while True:
 
 
         Imitator = choose(players)
-        idea_hint = "Sorry, but I \ncant help you"
+        idea_hint = "Sorry, but I \ncan't help you"
         if imitator_assist:
             if catagory == 1:
                 idea_hint = "a animal"
@@ -418,7 +333,7 @@ while True:
         for i in range(0,len(players)):
             warn("PASS THE DEVICE TO {}".format(players[i]))
             while True:
-                if not ask("PRESS 1 TO CONFIRM YOU ARE {}".format(players[i]), ["Im {}".format(players[i]), "Im not {}".format(players[i])], prompt=False) == "Im {}".format(players[i]):continue
+                if not ask("Are you {}?".format(players[i]), ["Im {}".format(players[i]), "Im not {}".format(players[i])], prompt=False) == "Im {}".format(players[i]):continue
                 else: break
                 
             warn(ROLE_MENU.format(
@@ -465,7 +380,7 @@ while True:
         for i in range(0,len(players)):
             if quit_game:break
             warn("PASS THE DEVICE TO {}".format(players[i]))
-            vote.append(ask("Who is imitating to\nunderstand the speech\nsubject?", players, False))
+            vote.append(view_list(players, title="--Who's Imitator?--"))
 
         try:
             warn("Time to reveal the\nimitator...\npress EXE to reveal", False)
