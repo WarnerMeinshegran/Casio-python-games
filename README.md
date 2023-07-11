@@ -1,5 +1,3 @@
-
-https://github.com/blabla-labALT/Casio-python-games/assets/92992442/04f69169-311f-425a-b979-028ad0a568d1
 # Casio-python-games
 Games and tools I made for my casio calculator fx-9860GIII.
 You can play these games on any calculator that supports python.
@@ -79,6 +77,7 @@ from slope form(y=mx+b) to standard form (x+y=b)
 calulate surface area and volume
 currently only sphere bases are supported
 
+# How to install:
 https://github.com/blabla-labALT/Casio-python-games/assets/92992442/d1e78088-1219-495f-b410-952991fe632c
 
 
