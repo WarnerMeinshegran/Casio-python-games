@@ -13,7 +13,7 @@ Things to note when using mini versions:
 
 ## Games
 * 1 Player games
-	* Game1
+	* RPS
    	* UnoTerminal
 * 2+ player games
 	* Why,Cuz
@@ -34,8 +34,8 @@ Things to note when using mini versions:
   
 # Descreption
 ## Games
-### Game 1
-Its simply rock paper scissors but with bots
+### RPS
+Its simply rock paper scissors but you play with bot
 ### WhyCuz
 Why because is a 2 player game with bots.
 How its played:
