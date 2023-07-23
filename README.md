@@ -35,7 +35,8 @@ Things to note when using mini versions:
 # Descreption
 ## Games
 ### RPS
-Its simply rock paper scissors but you play with bot
+Its simply rock paper scissors but you play with bot.
+This is a replacment for game1 because it had 50 lines of code while RPS has only 11 lines of code
 ### WhyCuz
 Why because is a 2 player game with bots.
 How its played:
