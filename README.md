@@ -78,11 +78,9 @@ Same as UnoTerminal but:
 
 
 ## Tools
-### SDTcalc
-calculates speed, time, and distance. not made by me, credits are in the code
-### m2StdFrm
+### m2StdFrm (Not maintained anymore, it is complete)
 from slope form(y=mx+b) to standard form (x+y=b)
-### TSA calc
+### TSA calc (Not maintained anymore)
 calulate surface area and volume
 currently only sphere bases are supported
 
