@@ -14,7 +14,7 @@ for the next player
 """
 
 NAME = "UnoTerminal"
-VERSION = "1.0 Alpha"
+VERSION = "1.0"
 CREATION_DATE = "7/July/2023"
 
 
