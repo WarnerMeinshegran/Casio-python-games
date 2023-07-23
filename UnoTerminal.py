@@ -5,11 +5,6 @@ import String_methodes as sm
 About:
 a simple uno game but for calcs or terminal
 
-TODO:
--leaderboard
--shffel player list
- 
-
 
 Notes:
 when you put a magic card like draw 4 and you choose color yellow
