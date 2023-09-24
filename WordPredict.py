@@ -1,5 +1,6 @@
 from random import choice as choose
 from random import randint as random_number
+DEBUG = False
 words = ['car', 'ray', 'mix', 'sip', 'rot', 'pie', 'boy', 'toy', 'sky', 'beg', 'can', 'tug', 'end', 'bit', 'tax', 'mom', 'fit', 
 'cow', 'dad', 'bat', 'two', 'day', 'sign', 'cook', 'mate', 'cork', 'wall', 'beer', 'ring', 'milk', 'mind', 'stir', 'step', 
 'thaw', 'long', 'fall', 'jail', 'glue', 'pain', 'sock', 'kick', 'meal', 'rake', 'hand', 'rain', 'coal', 'self', 'drop',
@@ -62,7 +63,7 @@ OPTION NUMBER:"""
 credits_menu="""Credits
 Developer:
 blabla_lab
-Version:1.2
+Version:1.2.1   #! MAINTAIN VERSION
 Save code:
 {1}
 Words:{0}
@@ -172,10 +173,10 @@ while True:
     except KeyError:
         continue
 
-    print("LOADING...\nYou can always\nend a game by\npressing 1\n\n\n")
+    print("LOADING...\nTIP:\nYou can always\nend a game by\npressing 1\n\n")
     win=False
     #*levels require 3 points
-    if points==points_for_level:
+    if points>=points_for_level:
         level += 1
         points_for_level = points_for_level * 2 + 1
         difficulty_word_length += 1
@@ -205,7 +206,7 @@ while True:
     while True:
         if win:
             break
-       # print(word)
+        if DEBUG: print(word)
         print("Points:{0} Tries:{2}\nLevel:{1}\nPress 1 to quit game\n".format(points,level,tries,))
         print("".join(guessing_list))
         guess = str(input("Guess a letter:\n")).lower()
@@ -227,7 +228,7 @@ while True:
                 warn("YOU DID IT!\nThe word was\n{word}\n\n".format(word=word))
                 if tries == user_tries:
                     # no error while guessing
-                    extra_points = random_number(1, abs(points//2)+1) * level
+                    extra_points = random_number(1, len(word_in_a_list_form))
                     if extra_points == 0:extra_points = 1
                     points += extra_points
                     warn("You guessed the word\nwithout any tries!\nYou got extra {0}\npoint(s), Goodjob!".format(extra_points))
