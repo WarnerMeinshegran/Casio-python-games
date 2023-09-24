@@ -31,6 +31,9 @@ Things to note when using mini versions:
 * math
 	* m2stdfrm
 	* TSAcalc (Discontinued)
+ * other
+ 	* Currency 
+ 	  
   
 # Descreption
 ## Games
@@ -84,6 +87,9 @@ from slope form(y=mx+b) to standard form (x+y=b)
 ### TSA calc (Not maintained anymore)
 calulate surface area and volume
 currently only sphere bases are supported
+### Currency
+Tells you the exhange rate between 2 currencies.
+NOTE: THIS PROGRAM MAY BE HUGE FOR THE CALCULATOR CASIO FX-9860 GIII, IT REQUIRES 56000 BYTES OF MEMEORY, TRY FREEING UP MEMEORY IF IT FAILS TO LOAD.
 
 # How to install:
 https://github.com/blabla-labALT/Casio-python-games/assets/92992442/d1e78088-1219-495f-b410-952991fe632c
