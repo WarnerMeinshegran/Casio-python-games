@@ -9,7 +9,8 @@ Things to note when using mini versions:
 - some features are removed
 - some feature are limited like for example wordpredict mini will have less word to guess
 
-
+## News
+Updated UnoTerminal to 1.1
 
 ## Games
 * 1 Player games
