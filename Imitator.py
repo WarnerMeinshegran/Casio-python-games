@@ -8,7 +8,7 @@ Finally when the game finishes the players vote to who they think is imitating.
 after voting the imitator will try to guess the subject they were talking about
 
 useful info:
--when adding player type 1qa as a player name to add 3 dummy players
+-when adding player type 1qa as a player name to add to add 3 dummy players
 -batch add names by adding comma between every name(example: Noah,Hamed,Ali)
 while in questions menu type 1 then enter to quit game
 """
@@ -41,6 +41,11 @@ improved menus
 removed unused menus
     |_vote (unused)
     |_remove player (replaced)
+
+1.4.1
+fixed text cutoff
+minor player menu changes
+
 """
 
 
@@ -49,7 +54,7 @@ from random import choice as choose
 from String_methodes import *
 
 NAME = "Imitator"
-VERSION = 1.4
+VERSION = "1.4.1"
 CREATION_DATE = "30/May/2023"
 
 
@@ -174,10 +179,10 @@ MAIN_MENU = """{0}!
 ----0:Quit----
 """.format(NAME)
 PLAYERS_MENU = """Manage players
--1.Add 
--2.Back 
--3.Remove
--4.View players
+1.Add 
+2.Back 
+3.Remove
+4.View players
 """
 SETTINGS_MENU = """Settings
 1.No. questions: {0}
@@ -197,8 +202,7 @@ ROLE_MENU = """{0}
 You are an:
 {1}.
 {2}
-Dont tell anyone!
-press EXE"""
+Dont tell anyone!"""
 QUESTION_MENU = """Questions({0}/{1})
 Hey {2},
 ask {3}.
@@ -331,7 +335,7 @@ while True:
 
 
         for i in range(0,len(players)):
-            warn("PASS THE DEVICE TO {}".format(players[i]))
+            warn("PASS THE DEVICE TO\n{}".format(players[i]), auto_break_lines=False)
             while True:
                 if not ask("Are you {}?".format(players[i]), ["Im {}".format(players[i]), "Im not {}".format(players[i])], prompt=False) == "Im {}".format(players[i]):continue
                 else: break
@@ -379,7 +383,7 @@ while True:
             
         for i in range(0,len(players)):
             if quit_game:break
-            warn("PASS THE DEVICE TO {}".format(players[i]))
+            warn("PASS THE DEVICE TO\n{}".format(players[i]), auto_break_lines=False)
             vote.append(view_list(players, title="--Who's Imitator?--"))
 
         try:
