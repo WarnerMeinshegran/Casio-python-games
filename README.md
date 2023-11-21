@@ -77,10 +77,7 @@ same as imitator but the game is smaller in size and will have no updates
 ### UnoTerminal
 Play uno but in your calculator!
 can be played alone with bots or with friends
-### UnoTerminalMini
-Same as UnoTerminal but:
-- limited settings menu
-- slower bots
+
 
 
 ## Tools
