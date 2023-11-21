@@ -42,8 +42,8 @@ HELP_EDIT = {
     "!hc" : "show character help",
     "!-" : "remove the last line",
 }
+print("Command line!\nuse !edit to run multiline code")
 
-print("Command Line!")
 
 def find_key_from_value(dictionary, value_as_a_key):
     for key in list(dictionary.keys()):
