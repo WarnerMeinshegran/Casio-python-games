@@ -49,7 +49,7 @@ placed_card = None
 sentences = ["Don't rely on others", 
              "I am busy", 
              "I will nvr give u up", 
-             "UNO is easy for you", 
+             "UNO is simply easy", 
              "Expect = disappoint",
              "What do you expect?",
              "You=brain, me=cpu",
@@ -57,8 +57,13 @@ sentences = ["Don't rely on others",
              "UNO is a card game",
              "LUDO isnt UNO",
              "Uhh, umm... AAAAAAAAA",
-             "Good luck",
-             "Good job",
+             "AAAAAAAAAAAAAA",
+             "1 VRIUS FOUND!!",
+             "wipe is a wise",
+             "wise man said: UNO",
+             "unwise man said: ludo",
+             "HyberBanda",
+             "Diapers are for kids"
              ]
 
 PLAYER_NAME_ALLOWED_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ".", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
