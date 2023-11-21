@@ -23,6 +23,7 @@ NAME = "MenoTerminal"
 VERSION = "1.2"
 CREATION_DATE = "7/July/2023"
 
+input("Warner Meinshegran\nA.K.A blabla_lab\nPRESENTS:\n{0}!\n{1}".format(NAME, VERSION))
 
 YELLOW_NO_MAGIC = ['1 Yellow', '2 Yellow', '3 Yellow', '4 Yellow', '5 Yellow', '6 Yellow', '7 Yellow', '8 Yellow', '9 Yellow']
 RED_NO_MAGIC = ['1 Red', '2 Red', '3 Red', '4 Red', '5 Red', '6 Red', '7 Red', '8 Red', '9 Red']
@@ -539,7 +540,7 @@ while True:
                             assist_players_suggestion = "Draw a card"
 
                 user_input = sm.ask("The placed card is \n{0}{1}".format(placed_card, 
-                                                                         "\n{0}:\n{1}".format("Recommend action" if not idiotic_assist else "Wise:", 
+                                                                         "\n{0}:\n{1}".format("Recommend action" if not idiotic_assist else "Wise Of The Turn", 
                                                                                               assist_players_suggestion) if assist_players else ""),
                                                                                 ["Draw a card", "Play a card"], prompt=False, auto_break_lines=False)
     
