@@ -6,23 +6,23 @@ About:
 a simple uno game but for calcs or terminal with bots support
 
 
-
 Notes:
 when you put a magic card like draw 4 and you choose color yellow
 the next player will draw 4 cards
 then the magic card will be replaced by a random normal yellow card
 for the next player
+
+1.2 | Nov, 21, 2023
+optimizations
+fixed bugs
+easter egg
+leaderboard
 """
 
-NAME = "UnoTerminal"
-VERSION = "1.1"
+NAME = "MenoTerminal"
+VERSION = "1.2"
 CREATION_DATE = "7/July/2023"
 
-
-YELLOW = ['1 Yellow', '2 Yellow', '3 Yellow', '4 Yellow', '5 Yellow', '6 Yellow', '7 Yellow', '8 Yellow', '9 Yellow', "Draw 2 Yellow", "Wild Yellow", "Skip Yellow", "Draw 4 Yellow"]
-RED = ['1 Red', '2 Red', '3 Red', '4 Red', '5 Red', '6 Red', '7 Red', '8 Red', '9 Red', 'Draw 2 Red', "Wild Red", "Skip Red", "Draw 4 Red"]
-BLUE = ['1 Blue', '2 Blue', '3 Blue', '4 Blue', '5 Blue', '6 Blue', '7 Blue', '8 Blue', '9 Blue', 'Draw 2 Blue', "Wild Blue" , "Skip Blue", "Draw 4 Blue"]
-GREEN = ['1 Green', '2 Green', '3 Green', '4 Green', '5 Green', '6 Green', '7 Green', '8 Green', '9 Green', 'Draw 2 Green', "Wild Green", "Skip Green", "Draw 4 Green"]
 
 YELLOW_NO_MAGIC = ['1 Yellow', '2 Yellow', '3 Yellow', '4 Yellow', '5 Yellow', '6 Yellow', '7 Yellow', '8 Yellow', '9 Yellow']
 RED_NO_MAGIC = ['1 Red', '2 Red', '3 Red', '4 Red', '5 Red', '6 Red', '7 Red', '8 Red', '9 Red']
@@ -30,43 +30,46 @@ BLUE_NO_MAGIC = [ '1 Blue', '2 Blue', '3 Blue', '4 Blue', '5 Blue', '6 Blue', '7
 GREEN_NO_MAGIC = ['1 Green', '2 Green', '3 Green', '4 Green', '5 Green', '6 Green', '7 Green', '8 Green', '9 Green']
 
 
-
-
 MAGIC_CARDS = ["Draw 2 Yellow", "Draw 2 Red", "Draw 2 Blue", "Draw 2 Green" , "Draw 4", "Wild Card"]
-
-UNO_CARDS = YELLOW + RED + BLUE + GREEN
 
 UNO_CARDS_TO_GIVE = YELLOW_NO_MAGIC + RED_NO_MAGIC + BLUE_NO_MAGIC + GREEN_NO_MAGIC
 
+RANDOM_CARD = choose(MAGIC_CARDS) # easter egg in credits menu
 
 cards_per_player = 4
 assist_players = True
+idiotic_assist = False
 draw_until_matching_card = False # draws a card until a correct one is found, after that it will play it automatically
-# cancel_magic_using_skip = True
-
 players = []
+leaderboard = {}
 bots_count = 1
 played_card = None
 placed_card = None
+sentences = ["Don't rely on others", 
+             "I am busy", 
+             "I will nvr give u up", 
+             "UNO is easy for you", 
+             "Expect = disappoint",
+             "What do you expect?",
+             "You=brain, me=cpu",
+             "My fav dish is RAM",
+             "UNO is a card game",
+             "LUDO isnt UNO",
+             "Uhh, umm... AAAAAAAAA",
+             "Good luck",
+             "Good job",
+             ]
 
 PLAYER_NAME_ALLOWED_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ".", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 
 MAIN_MANU = """{Name}!
-1-Play
-2-Settings
-3-Players
-0-Quit
---Type a number--
-""".format(Name=NAME)
-
-# SETTINGS_MENU = """Settings|0 to quit
-# 1-Credits
-# 2-Cards per player:
-# {Cards_per_player}
-# 3-
-# --Type a number--
-# """
+1.Play
+2.Settings
+3.Players
+4.Leaderboard
+5.Credits
+--0:Quit--""".format(Name=NAME)
 
 #! make settings for your features here!
 SETTINGS = {
@@ -112,7 +115,9 @@ CREDITS_MENU = """Credits
 {Name} {Version}
 Made by blabla_lab
 {Random_card}
-""".format(Name=NAME, Version=VERSION, Random_card=choose(MAGIC_CARDS))
+""".format(Name=NAME, Version=VERSION, Random_card=RANDOM_CARD)
+
+
 
 
 def check_name(name, check_comma = True):
@@ -201,14 +206,33 @@ def draw_until_correct_card(player, bots = False):
             break
 
 
-def remove_card(card):
+def reset_leaderboard():
+    leaderboard.clear()
+    for player in players:  
+        leaderboard[player] = 0 # points, wins
+
+def remove_player_from_leaderboard(plr):
+    leaderboard.pop(plr)
+
+def add_player_to_leaderboard(plr):
+    leaderboard[plr] = 0
+
+# def preview_leaderboard():
+#     x = []
+#     for name in leaderboard:
+#         x.append("{0}:{1}".format(name, leaderboard[name]))
+#     return x
+
+def remove_card(card, plr=None):
     global exit_loop
-    player_cards[player].remove(card)
+    if plr is None: plr = player
+    # print(plr, card, player_cards[plr])
+    player_cards[plr].remove(card)
     # if player has no cards
-    if player_cards[player] == []:
-        sm.warn("The winner is {}".format(player))
+    if player_cards[plr] == []:
+        sm.ask("The winner is:\n{}".format(plr), ["quit", "..."], prompt=False)
+        leaderboard[plr] = leaderboard[plr] + 1
         exit_loop = True
-        
 
 def check_if_played_card_is_correct(card = None):
     # check system
@@ -258,8 +282,10 @@ Green: {5}""".format(card,placed_card, True if card.find("Yellow") != -1 else Fa
 
 
 
-def add_player(player):
-    players.append(player)
+def add_player(name):
+    players.append(name)
+    add_player_to_leaderboard(name)
+    
 
 def remove_player(player):
     players.remove(player)
@@ -313,7 +339,7 @@ while True:
             if user_input == "1":continue
             elif user_input == "1qa":
                 add_player("Dummy")
-                players.append("CPU {}".format(bots_count))
+                add_player("CPU {}".format(bots_count))
                 sm.warn("Added bot:\n{} !".format("CPU {}".format(bots_count)))
                 bots_count += 1   
                 continue
@@ -344,18 +370,42 @@ while True:
             sm.clr_scrn()
             sm.view_list(players, readonly=True, title="--Players--")
         elif user_input == "5":
-            players.append("CPU {}".format(bots_count))
+            # add bot
+            add_player("CPU {}".format(bots_count))
             sm.warn("Added bot:\n{} !".format("CPU {}".format(bots_count)))
             bots_count += 1     
         elif user_input == "vmb": # (v)ery (m)any (b)ots    
             print("---DEBUG---")
             for i in range(int(input("Number of bots to add"))):
-                players.append("CPU {}".format(bots_count))
+                add_player("CPU {}".format(bots_count))
                 bots_count += 1   
             sm.warn("done")
 
         continue
-        
+    elif user_input == "4":
+        if len(list(leaderboard.keys())) == 0:
+            sm.warn("learderboard is empty")
+            continue
+        x = sm.view_list(list(leaderboard.keys()), pick_confirm=False, title="-Leaderboard-")
+        sm.clr_scrn()
+        print("{}\nwins:".format(x))
+        input(leaderboard[x])
+    elif user_input == "5":
+        # credits
+        sm.clr_scrn()
+        x = input(CREDITS_MENU)
+        if x == RANDOM_CARD:
+            # easter egg
+            y = sm.ask("Activate idiotic assist?", ["yes", "no"], prompt=False)
+            if y == "yes":
+                sm.clr_scrn()
+                input("This will be funny!\nPress Exe to\nACTIVATE")
+                idiotic_assist = True
+
+
+        else:
+            continue
+
 
 
         
@@ -386,20 +436,18 @@ while True:
     for player in players:
         while True:
             if player.find("CPU") == -1:
+                sm.clr_scrn()
                 input("give device\nto {}".format(player))
                 if sm.ask("Are you {}?\n".format(player), ["yes","no"], prompt=False) == "no":
                     continue
-                sm.warn("click exe to view your cards,NEVER show your cards!".format(player))
+                sm.warn("press exe to view your cards,NEVER show your cards!".format(player))
                 sm.view_list(player_cards[player], readonly=True, title = "--Cards--")
             else:
-                sm.warn("{} has saw its cards\npress exe to continue".format(player))
+                sm.warn("{} saw there cards".format(player))
                 
             break
 
-    while True:
-        placed_card = choose(UNO_CARDS)
-        if placed_card.startswith("Draw 2") or placed_card.startswith("Draw 4") or placed_card.startswith("Wild") or placed_card.startswith("Skip"):continue
-        else:break
+    placed_card = choose(UNO_CARDS_TO_GIVE)
 
 
     # play
@@ -412,16 +460,16 @@ while True:
     exit_loop = False
     while exit_loop is False:
         for player in players:
-            
+            sm.clr_scrn()
             if exit_loop is True:break
 
             bot_turn = True if player.find("CPU") != -1 else False
 
-            if bot_turn is False and len(human_players) != 1: # if there is 1 human player stop asking to pass device to him / her
+            if bot_turn is False and len(human_players) != 1: 
                 input("give device\nto {}".format(player))
-                if sm.ask("Are you {}?".format(player), ["yes","no"]) == "no":continue
+                if sm.ask("Are you {}?".format(player), ["yes","no"], prompt=False) == "no":continue
             elif bot_turn is True:
-                print(sm.add_line_breaks("{} is playing".format(player)))
+                print(sm.add_line_breaks("{} Turn!".format(player)))
             elif bot_turn is False and len(human_players) == 1:
                 sm.warn("Its your turn\n{}".format(player), auto_break_lines=False)
 
@@ -433,94 +481,67 @@ while True:
                 sm.warn("The placed card is {}".format(placed_card))
                 draw(4, player)
                 placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
-            elif placed_card.startswith("Skip"):
-                if not bot_turn:sm.warn("YOU ARE SKIPPED")
-                elif bot_turn:sm.warn("{} is skipped".format())
-                placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
             elif placed_card.startswith("Wild"):
                 placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
 
             if bot_turn:
-                print(sm.add_line_breaks("The placed card is {}. {} is thinking...".format(placed_card, player)))
                 #! BOT AI
+   
+                """
+                Advanced check
 
-                if placed_card in player_cards[player]:
-                    # bot has exact card in inventory 
-                    played_card = player_cards[player][player_cards[player].index(placed_card)]
+                How does it work:
+                The system basically chooses a card from the 
+                inventory starting from the first to last,
+                then it sets this choosen card as a played card and runs the check system
+                which is a function named check_if_played_card_is_correct()
+                if the function returned true it will play this card else it will choose the next card untill
+                it goes to the last one. if nothing is correct the CPU will draw a card
+                """
+                CPU_inventory = player_cards[player]
+                played=False
+                for card in CPU_inventory:
+                    if exit_loop is True:break
+                    if check_if_played_card_is_correct(card) is True:
+                        if card.startswith("Draw 4"):
+                            remove_card(card, player)# remove the magic card first cuz its name will be modified later
+                            magic_color = average_cards_color(player)
+                            card = "Draw 4 {}".format(magic_color)
+                        elif card.startswith("Wild"):
+                            remove_card(card, player)
+                            magic_color = average_cards_color(player)
+                            card = "Wild {}".format(magic_color)
+                        else:remove_card(card, player)
 
+                        placed_card = card
+                        played=True
+                        
+                        break
+                if not played:
+                    if draw_until_matching_card: draw_until_correct_card(player, bots=True)
+                    else: draw(1, player)
+                        
+                if exit_loop is True:break
+                input("{} is done!\n".format(player))
 
-                    remove_card(played_card)
-                    placed_card = played_card
-                    print("{}\nchose\n{}".format(player,placed_card))
-                    
-                else:
-                    """
-                    Advanced check
-
-                    How does it work:
-                    The system basically chooses a card from the 
-                    inventory starting from the first to last,
-                    then it sets this choosen card as a played card and runs the check system
-                    which is a function named check_if_played_card_is_correct()
-                    if the function returned true i will laye this card else it will choose the next card untill
-                    it goes to the last one. if nothing is correct the CPU will draw a card
-                    """
-                    CPU_inventory = player_cards[player]
-                    bot_tries = 0
-                    while True:
-                        try:
-                            played_card = CPU_inventory[bot_tries]
-                        except IndexError:
-                            draw(1, player, True)
-                            # input("{} drew a card".format(player))
-                            break
-                        # input("DEBUG:\n{bot} choose {card}".format(bot=player, card=played_card))
-                        correct = check_if_played_card_is_correct()
-                        # input("DEBUG:\nplayed card:\n{}\nplaced card:\n{}\nCorrect:\n{}".format(played_card, placed_card, correct))
-                        if correct is False: 
-                            # print("bot tries: {}".format(bot_tries))
-
-                            if bot_tries > len(player_cards[player]):
-                                # tried too much
-                                if draw_until_matching_card: draw_until_correct_card(player, )
-                                else: draw(1, player, )
-                                # input("{} drew a card".format(player))
-                                break
-
-                            bot_tries +=1
-                            continue
-                        if correct:
-                            print(sm.add_line_breaks("{} played {}".format(player, played_card))) 
-                            remove_card(played_card)
-                            # black magic cards
-                            if played_card.startswith("Draw 4"):
-                                magic_color = average_cards_color(player)
-                                # print("DEBUG: avg color: {}".format(magic_color))
-                                played_card = "Draw 4 {}".format(magic_color)
-                            elif played_card.startswith("Wild"):
-                                magic_color = average_cards_color(player)
-                                # print("DEBUG: avg color: {}".format(magic_color))
-                                played_card = "Wild {}".format(magic_color)
-
-                            placed_card = played_card
-                            # input("DEBUG: {} played corrrectly".format(player))
-                            break
-                
-                            
-                input("{} is done\n".format(player))
 
                 continue
 
             if not bot_turn:
                 assist_players_suggestion = None
-                for card in player_cards[player]:
-                    if check_if_played_card_is_correct(card=card) is True:
-                        assist_players_suggestion = "Play a card"
-                        break
-                    else:
-                        assist_players_suggestion = "Draw a card"
+                if idiotic_assist is True: assist_players_suggestion = choose(sentences)
+                else:
+                    for card in player_cards[player]:
+                        if check_if_played_card_is_correct(card=card) is True:
+                            assist_players_suggestion = "Play a card"
+                            break
+                        else:
+                            assist_players_suggestion = "Draw a card"
 
-                user_input = sm.ask("The placed card is \n{0}{1}".format(placed_card, "\nRecommend action:\n{}".format(assist_players_suggestion) if assist_players else ""), ["Draw a card", "Play a card"], prompt=False, auto_break_lines=False)
+                user_input = sm.ask("The placed card is \n{0}{1}".format(placed_card, 
+                                                                         "\n{0}:\n{1}".format("Recommend action" if not idiotic_assist else "Wise:", 
+                                                                                              assist_players_suggestion) if assist_players else ""),
+                                                                                ["Draw a card", "Play a card"], prompt=False, auto_break_lines=False)
     
                 if user_input == "Play a card":
                     played_card = sm.view_list(player_cards[player], pick_confirm_question="Play {}?", title="placed card:{}".format(placed_card))
