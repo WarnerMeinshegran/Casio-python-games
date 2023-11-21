@@ -11,6 +11,7 @@ Things to note when using mini versions:
 
 ## News
 Updated UnoTerminal to 1.2
+Updated String_methodes.py library
 
 ## Games
 * 1 Player games
@@ -92,6 +93,8 @@ currently only sphere bases are supported
 
 # How to install:
 https://github.com/WarnerMeinshegran/Casio-python-games/assets/92992442/e00fdc57-b8f9-4db0-b1ff-4ed9e1aec781
+## Note:
+Always install the file "String_methodes.py" to your device/calculator
 
 
 
