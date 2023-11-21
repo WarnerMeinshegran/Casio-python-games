@@ -1,7 +1,10 @@
-"""1.2
+"""1.0
 improved add_line_breaks()
 more navigation controls for view_list()
 modifiable configs
+
+1.0.1
+forgot to include page number in view_list()
 """
 
 # SETTINGS
@@ -173,7 +176,7 @@ def view_list(list_items, page_size=SCREEN_MAX_LINES-4, pick_confirm=True, pick_
         print("_"*len(list(controls))) # seperator between controls and items
         if not readonly: 
             print(controls.format(current_page+1))
-            user_navigation = input("pick item(1-{})".format(len(pages[current_page])))
+            user_navigation = input("pick(1-{0})|pg:{1}".format(len(pages[current_page]), current_page))
         elif readonly:
             user_navigation = input(controls.format(current_page+1))
 
