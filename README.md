@@ -10,8 +10,10 @@ Things to note when using mini versions:
 - some feature are limited like for example wordpredict mini will have less word to guess
 
 ## News
-Updated UnoTerminal to 1.2
+New file! commands.py
 Updated String_methodes.py library
+Updated UnoTerminal to 1.2
+
 
 ## Games
 * 1 Player games
@@ -34,7 +36,7 @@ Updated String_methodes.py library
 	* m2stdfrm
 	* TSAcalc (Discontinued)
  * other
- 	* Currency 
+ 	* commands
  	  
   
 # Descreption
@@ -86,10 +88,14 @@ from slope form(y=mx+b) to standard form (x+y=b)
 ### TSA calc (Not maintained anymore)
 calulate surface area and volume
 currently only sphere bases are supported
+### commands.py
+A command line that can run one line code and multiline code!
+Very useful for testing some code.
 
 
 # How to install:
 https://github.com/WarnerMeinshegran/Casio-python-games/assets/92992442/e00fdc57-b8f9-4db0-b1ff-4ed9e1aec781
+
 ## Note:
 Always install the file "String_methodes.py" to your device/calculator
 
