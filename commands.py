@@ -34,16 +34,16 @@ CHARACTERS = {'*/33': '!',
 '*/126': '~'}
 
 HELP_EDIT = {
-    "!e" : "edit a specific line",
-    "!h" : "show help menu",
-    "!v" : "view text",
-    "!r" : "run text as python commands",
-    "!q" : "exit editor without saving",
-    "!hc" : "show character help",
-    "!-" : "remove the last line",
+    "/e" : "edit a specific line",
+    "/h" : "show help menu",
+    "/v" : "view text",
+    "/r" : "run text as python commands",
+    "/q" : "exit editor without saving",
+    "/hc" : "show character help",
+    "/-" : "remove the last line",
 }
-print("Command line!\nuse !edit to run multiline code")
 
+print("Command line\nuse /edit to run multiline code")
 
 def find_key_from_value(dictionary, value_as_a_key):
     for key in list(dictionary.keys()):
@@ -60,40 +60,40 @@ def replace_with_char(stre):
 
 while True:
  cmd = str(input(">"))
- if cmd.startswith("!") is False:
+ if cmd.startswith("/") is False:
   try:exec(cmd, {})
   except Exception as e:print(e)
  else:
-  if cmd == "!edit":
+  if cmd == "/edit":
    text = []
    while True:
     sm.clr_scrn()
     for i in range(len(text)):
      print("{0}|{1}".format(i+1, text[i]))
-    print("__!h for help__")
+    print("__/h for help__")
     line = str(input("{}|".format(len(text)+1)))
-    if not line.startswith("!"): 
+    if not line.startswith("/"): 
      text.append(replace_with_char(line))
      continue
     
-    if line == "!h":
+    if line == "/h":
      x = sm.view_list(list(HELP_EDIT.keys()), pick_confirm=False)
      sm.warn(HELP_EDIT[x])
-    elif line == "!hc":
+    elif line == "/hc":
      x = sm.view_list(list(CHARACTERS.values()), pick_confirm=False)
      sm.warn(find_key_from_value(CHARACTERS,x)) 
-    elif line == "!e":
+    elif line == "/e":
      x = sm.view_list(text, title="PICK LINE TO EDIT", pick_confirm=False) 
      y = str(input("{}|".format(text.index(x)+1)))
      text.insert(text.index(x), y)
      text.remove(x)
-    elif line == "!-":
+    elif line == "/-":
       text.remove(sm.view_list(text, title="PICK LINE TO REMOVE", pick_confirm=False))
-    elif line == "!v":
+    elif line == "/v":
       sm.view_list(text, title="PREVIEW", readonly=True)
-    elif line == "!q":
+    elif line == "/q":
       break
-    elif line == "!r":
+    elif line == "/r":
       try:exec("\n".join(text))
       except Exception as e:sm.warn(e)
       continue
