@@ -10,6 +10,7 @@ Things to note when using mini versions:
 - some feature are limited like for example wordpredict mini will have less word to guess
 
 ## News
+Updated commands.py
 New file! commands.py
 Updated String_methodes.py library
 Updated UnoTerminal to 1.2
