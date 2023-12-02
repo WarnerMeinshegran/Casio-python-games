@@ -12,15 +12,19 @@ the next player will draw 4 cards
 then the magic card will be replaced by a random normal yellow card
 for the next player
 
-1.2 | Nov, 21, 2023
+1.2 | Nov 21, 2023
 optimizations
 fixed bugs
 easter egg
 leaderboard
+
+1.2.1 | Dec 12, 2023
+fixed text cutoff
+minor fixes
 """
 
 NAME = "MenoTerminal"
-VERSION = "1.2"
+VERSION = "1.2.1"
 CREATION_DATE = "7/July/2023"
 
 input("Warner Meinshegran\nA.K.A blabla_lab\nPRESENTS:\n{0}!\n{1}".format(NAME, VERSION))
@@ -49,21 +53,12 @@ placed_card = None
 sentences = ["Don't rely on others", 
              "I am busy", 
              "I will nvr give u up", 
-             "UNO is simply easy", 
+             "UNO is easy", 
              "Expect = disappoint",
-             "What do you expect?",
-             "You=brain, me=cpu",
-             "My fav dish is RAM",
              "UNO is a card game",
-             "LUDO isnt UNO",
-             "Uhh, umm... AAAAAAAAA",
              "AAAAAAAAAAAAAA",
              "1 VRIUS FOUND!!",
-             "wipe is a wise",
-             "wise man said: UNO",
-             "unwise man said: ludo",
-             "HyberBanda",
-             "Diapers are for kids"
+             "Is it hard?",
              ]
 
 PLAYER_NAME_ALLOWED_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ".", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -291,14 +286,17 @@ Green: {5}""".format(card,placed_card, True if card.find("Yellow") != -1 else Fa
 def add_player(name):
     players.append(name)
     add_player_to_leaderboard(name)
+    sm.clr_scrn()
+    input("Added player:\n{}".format(name))
     
 
 def remove_player(player):
+    sm.clr_scrn()
     players.remove(player)
-    if user_input.find("CPU") == -1:
-        sm.warn("Removed player:\n{}".format(user_input))
+    if player.find("CPU") == -1:
+        input("Removed player:\n{}".format(player))
     else:
-        sm.warn("Removed bot:\n{}".format(user_input))
+        input("Removed bot:\n{}".format(player))
         bots_count -= 1
 
 
@@ -346,7 +344,6 @@ while True:
             elif user_input == "1qa":
                 add_player("Dummy")
                 add_player("CPU {}".format(bots_count))
-                sm.warn("Added bot:\n{} !".format("CPU {}".format(bots_count)))
                 bots_count += 1   
                 continue
             if user_input.find(",") != -1:
@@ -378,7 +375,6 @@ while True:
         elif user_input == "5":
             # add bot
             add_player("CPU {}".format(bots_count))
-            sm.warn("Added bot:\n{} !".format("CPU {}".format(bots_count)))
             bots_count += 1     
         elif user_input == "vmb": # (v)ery (m)any (b)ots    
             print("---DEBUG---")
