@@ -1,4 +1,5 @@
 from random import choice as choose
+from random import sample
 import String_methodes as sm
 
 """
@@ -21,10 +22,16 @@ leaderboard
 1.2.1 | Dec 12, 2023
 fixed text cutoff
 minor fixes
+
+1.3 | Dec 9, 2023
+skip card
+new stacking rule
+fixed leaderboard bug
+optimizations
 """
 
 NAME = "MenoTerminal"
-VERSION = "1.2.1"
+VERSION = "1.3"
 CREATION_DATE = "7/July/2023"
 
 input("Warner Meinshegran\nA.K.A blabla_lab\nPRESENTS:\n{0}!\n{1}".format(NAME, VERSION))
@@ -35,7 +42,10 @@ BLUE_NO_MAGIC = [ '1 Blue', '2 Blue', '3 Blue', '4 Blue', '5 Blue', '6 Blue', '7
 GREEN_NO_MAGIC = ['1 Green', '2 Green', '3 Green', '4 Green', '5 Green', '6 Green', '7 Green', '8 Green', '9 Green']
 
 
-MAGIC_CARDS = ["Draw 2 Yellow", "Draw 2 Red", "Draw 2 Blue", "Draw 2 Green" , "Draw 4", "Wild Card"]
+MAGIC_CARDS = ["Draw 2 Yellow", "Draw 2 Red", "Draw 2 Blue", "Draw 2 Green", 
+"Draw 4", "Wild Card",
+"Skip Yellow", "Skip Red", "Skip Blue", "Skip Green",
+]
 
 UNO_CARDS_TO_GIVE = YELLOW_NO_MAGIC + RED_NO_MAGIC + BLUE_NO_MAGIC + GREEN_NO_MAGIC
 
@@ -48,18 +58,10 @@ draw_until_matching_card = False # draws a card until a correct one is found, af
 players = []
 leaderboard = {}
 bots_count = 1
+stack_draw_cards = False
 played_card = None
 placed_card = None
-sentences = ["Don't rely on others", 
-             "I am busy", 
-             "I will nvr give u up", 
-             "UNO is easy", 
-             "Expect = disappoint",
-             "UNO is a card game",
-             "AAAAAAAAAAAAAA",
-             "1 VRIUS FOUND!!",
-             "Is it hard?",
-             ]
+
 
 PLAYER_NAME_ALLOWED_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ".", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -72,13 +74,15 @@ MAIN_MANU = """{Name}!
 5.Credits
 --0:Quit--""".format(Name=NAME)
 
+
 #! make settings for your features here!
 SETTINGS = {
     #* "option" : ["<Variable>", "<Type: int or bool>", "<If type is Int then supply min max in this format: min-max>"]
 
-    "Cards per player" : ["cards_per_player", "int", "4-15"],
+    "Cards per player" : ["cards_per_player", "int", "4-20"],
     "Draw till playable" : ["draw_until_matching_card", "bool"],
-    "Recommend Cards" : ["assist_players", "bool"]
+    "Recommend Cards" : ["assist_players", "bool"],
+    "Stack Draw Cards" : ["stack_draw_cards", "bool"]
 
 }
 
@@ -155,6 +159,7 @@ def most_common(list):
 
 
 def average_cards_color(player):
+    if len(player_cards[player]) == 0: return ""
     x = []
     for card in player_cards[player]:
         x.append(card.split(" ")[-1])
@@ -181,8 +186,8 @@ def draw(amount, player, silent = False):
         s = choose(UNO_CARDS_TO_GIVE+MAGIC_CARDS)
 
         if not silent and not bot:
-            sm.warn("Card {0} out of {1}\n{3} got {2}\n".format(i+1,amount,s,player))
-        elif bot and not silent: sm.warn("{} drew {}/{} card(s)\n".format(player,i+1,amount), clear_screen=False)
+            input("Card {0} / {1}\n{3}\ngot {2}\n".format(i+1,amount,s,player))
+        elif bot and not silent: sm.warn("{} drew {}/{} card".format(player,i+1,amount), clear_screen=False)
         player_cards[player].append(s)
     return s
 
@@ -218,11 +223,7 @@ def remove_player_from_leaderboard(plr):
 def add_player_to_leaderboard(plr):
     leaderboard[plr] = 0
 
-# def preview_leaderboard():
-#     x = []
-#     for name in leaderboard:
-#         x.append("{0}:{1}".format(name, leaderboard[name]))
-#     return x
+
 
 def remove_card(card, plr=None):
     global exit_loop
@@ -240,7 +241,7 @@ def check_if_played_card_is_correct(card = None):
     if card is None: card = played_card
 
     if card == "Wild Card": return True
-    elif card.startswith("Draw 2"):
+    elif card.startswith("Draw 2") or card.startswith("Skip"):
         placed_card_color = placed_card.split(" ")[1]
         if card.endswith("Yellow") and placed_card_color == "Yellow":
             return True
@@ -261,7 +262,14 @@ def check_if_played_card_is_correct(card = None):
     elif played_card_color == placed_card_color: return True
     elif played_card_number == "Draw" and played_card_color == "4": return True
     else: return False
-    
+
+def items_in_list(l, items):
+    z = []
+    for i in l:
+        for item in items:
+            if i == item:
+                z.append(i)
+    return z
 
 
 def replace_magic_card_with_normal_card_of_same_color(card):
@@ -281,7 +289,51 @@ Blue: {4}
 Green: {5}""".format(card,placed_card, True if card.find("Yellow") != -1 else False, True if card.find("Red") != -1 else False, True if card.find("Blue") != -1 else False, True if card.find("Green") != -1 else False))
         raise ValueError
 
+def can_stack(plr, color):
+    # print(f"DEBUG\n{player_cards[plr]}")
+    for card in player_cards[plr]:
+        if card.startswith("Draw 4"):
+            return card
+        elif card.startswith("Draw 2"):
+            print(color)
+            if card.endswith(color):
+                return card
+    return False
 
+
+def stack_prompt(increase_combo, plr):
+    global draw_combo, placed_card
+    if plr.startswith("CPU"): bot = True
+
+    draw_combo += increase_combo
+
+    y=can_stack(plr, card.split(" ")[-1])
+    # print(f'DEBUG\ncan_stack:{y} combo:{draw_combo}\nplr:{plr} bot:{bot}\ndraws:{len(items_in_list(player_cards[player],["Draw 2 Yellow", "Draw 2 Red", "Draw 2 Blue", "Draw 2 Green", "Draw 4"]))}')
+
+    if not bot:
+        sm.warn("The placed card is {}".format(placed_card))
+
+    if y is not False:
+        if not bot:
+            x = sm.ask("Do you want to draw {0} or stack it with {1}".format(draw_combo,y), ans=["Stack", "Draw"])
+        if bot:
+            if len(items_in_list(player_cards[player],["Draw 2 Yellow", "Draw 2 Red", 
+            "Draw 2 Blue", "Draw 2 Green", "Draw 4"])):
+                x = "Stack"
+                print("{} stacked!".format(plr))
+            else:
+                x = "Draw"
+        if x == "Draw":
+            draw(draw_combo, plr)
+            draw_combo = 0
+            placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
+        else:
+            player_cards[plr].remove(y)
+            placed_card = y
+    elif y is False:
+        draw(draw_combo, plr)
+        draw_combo = 0
+        placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
 
 def add_player(name):
     players.append(name)
@@ -293,6 +345,7 @@ def add_player(name):
 def remove_player(player):
     sm.clr_scrn()
     players.remove(player)
+    remove_player_from_leaderboard(player)
     if player.find("CPU") == -1:
         input("Removed player:\n{}".format(player))
     else:
@@ -398,11 +451,18 @@ while True:
         x = input(CREDITS_MENU)
         if x == RANDOM_CARD:
             # easter egg
-            y = sm.ask("Activate idiotic assist?", ["yes", "no"], prompt=False)
+            y = sm.ask("Activate bad assist?", ["yes", "no"], prompt=False)
             if y == "yes":
                 sm.clr_scrn()
-                input("This will be funny!\nPress Exe to\nACTIVATE")
                 idiotic_assist = True
+            else:
+                idiotic_assist = False
+        elif x == CREATION_DATE:
+
+            print("type 1 to exit")
+            while True:
+                c = choose(UNO_CARDS_TO_GIVE)
+                if input(''.join(sample(c, len(c)))) != "":break
 
 
         else:
@@ -411,7 +471,6 @@ while True:
 
 
         
-
 
     #* Game
     if user_input != "1":
@@ -431,6 +490,7 @@ while True:
 
 
     magic_color = None # used for black magic cards
+    draw_combo = 0
 
     sm.clr_scrn()
 
@@ -470,19 +530,25 @@ while True:
             if bot_turn is False and len(human_players) != 1: 
                 input("give device\nto {}".format(player))
                 if sm.ask("Are you {}?".format(player), ["yes","no"], prompt=False) == "no":continue
-            elif bot_turn is True:
-                print(sm.add_line_breaks("{} Turn!".format(player)))
+            # elif bot_turn is True:
+                # print(sm.add_line_breaks("{} Turn!".format(player)))
             elif bot_turn is False and len(human_players) == 1:
                 sm.warn("Its your turn\n{}".format(player), auto_break_lines=False)
 
+
             if placed_card.startswith("Draw 2"):
-                sm.warn("The placed card is {}".format(placed_card))
-                draw(2, player)
-                placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
+                stack_prompt(2,player)
+            
             elif placed_card.startswith("Draw 4"):
-                sm.warn("The placed card is {}".format(placed_card))
-                draw(4, player)
+                stack_prompt(2,player)
+            
+            elif placed_card.startswith("Skip"):
+                if bot_turn:
+                    sm.warn("{} is skipped".format(player))
+                else:
+                    sm.warn("You are skipped")
                 placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
+                continue
             elif placed_card.startswith("Wild"):
                 placed_card = replace_magic_card_with_normal_card_of_same_color(placed_card)
 
@@ -490,10 +556,10 @@ while True:
                 #! BOT AI
    
                 """
-                Advanced check
+                Bot
 
                 How does it work:
-                The system basically chooses a card from the 
+                The bot basically chooses a card from the 
                 inventory starting from the first to last,
                 then it sets this choosen card as a played card and runs the check system
                 which is a function named check_if_played_card_is_correct()
@@ -507,10 +573,12 @@ while True:
                     if check_if_played_card_is_correct(card) is True:
                         if card.startswith("Draw 4"):
                             remove_card(card, player)# remove the magic card first cuz its name will be modified later
+                            if exit_loop is True:break
                             magic_color = average_cards_color(player)
                             card = "Draw 4 {}".format(magic_color)
                         elif card.startswith("Wild"):
                             remove_card(card, player)
+                            if exit_loop is True:break
                             magic_color = average_cards_color(player)
                             card = "Wild {}".format(magic_color)
                         else:remove_card(card, player)
@@ -531,7 +599,7 @@ while True:
 
             if not bot_turn:
                 assist_players_suggestion = None
-                if idiotic_assist is True: assist_players_suggestion = choose(sentences)
+                if idiotic_assist is True: assist_players_suggestion = "".join([choose(PLAYER_NAME_ALLOWED_LETTERS) for i in range(10)])
                 else:
                     for card in player_cards[player]:
                         if check_if_played_card_is_correct(card=card) is True:
@@ -541,8 +609,8 @@ while True:
                             assist_players_suggestion = "Draw a card"
 
                 user_input = sm.ask("The placed card is \n{0}{1}".format(placed_card, 
-                                                                         "\n{0}:\n{1}".format("Recommend action" if not idiotic_assist else "Wise Of The Turn", 
-                                                                                              assist_players_suggestion) if assist_players else ""),
+                                                                         "\nRecommend action:\n{}".format(assist_players_suggestion) 
+                                                                         if assist_players else ""),
                                                                                 ["Draw a card", "Play a card"], prompt=False, auto_break_lines=False)
     
                 if user_input == "Play a card":
@@ -563,7 +631,7 @@ while True:
 
                         continue
                     else:
-                        input("You cant play this\ncard! You will\ndraw a card")
+                        sm.warn("You cant play this card! You will draw a card")
                         if draw_until_matching_card: draw_until_correct_card(player)
                         else: draw(1, player)
 
