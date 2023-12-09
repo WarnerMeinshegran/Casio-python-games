@@ -1,10 +1,22 @@
-"""1.0
+"""
+this library is used to display stuff in small screens
+
+
+CHANGELOG:
+1.0
 improved add_line_breaks()
 more navigation controls for view_list()
 modifiable configs
 
 1.0.1
 forgot to include page number in view_list()
+
+1.0.2
+fixed some text cutoff
+
+1.0.3
+search isnt case sensitive anymore
+rearranged controls
 """
 
 # SETTINGS
@@ -64,7 +76,8 @@ def add_line_breaks(string, length=SCREEN_MAX_LETTERS_PER_LINE-1):
 
 
 def warn(message, auto_break_lines = True, auto_break_lines_every=SCREEN_MAX_LETTERS_PER_LINE-1, title = None, clear_screen = True):
-    '''Prints the given message ans waits for the user to press enter
+    '''Prints the given message and waits for the user to press enter
+        NOTE: newline characters are ignored!
 
     Args:
         message (str): the message to display
@@ -113,22 +126,24 @@ def ask(question, ans = None, auto_break_lines = True, auto_break_lines_every = 
         try: return ans[user_input]
         except IndexError: continue
 
-def find_matches(items, search_term):
+def find_matches(list_to_search, search_term):
+    "Finds item that match <search_term> in <list_to_search>"
     matches = []
     for item in items:
-        if search_term in str(item):
+        if search_term.lower() in str(item).lower():
             matches.append(item)
     return matches
 
 
 def view_list(list_items, page_size=SCREEN_MAX_LINES-4, pick_confirm=True, pick_confirm_question="you picked {}\n you sure?", readonly=False, title="--------", indexed = True):
-    '''View list items in a 'scrollable' page
+    '''
+    View list items in a 'scrollable' page
 
     Args:
         list_items (list): items to show
         page_size (int, optional): number of items to show in screen. Defaults to 3.
         pick_confirm (bool, optional): confirm about the option the user picked. Defaults to True.
-        pick_confirm_question (str, optional): confirm question to ask. Defaults to "you picked {}\nyou sure?".
+        pick_confirm_question (str, optional): confirm question to ask. Defaults to "you picked {} you sure?".
         readonly (bool, optional): Doesnt let the user pick an item. Defaults to False.
         title (str, optional): title to show on the first line. Defaults to "--------".
 
@@ -137,7 +152,7 @@ def view_list(list_items, page_size=SCREEN_MAX_LINES-4, pick_confirm=True, pick_
     '''    
 
     current_page = 0 # used for navigation and generating pages
-    controls = "type c for controls"
+    controls = "c: controls"
     HOWTO="""CONTROLS
 +   |  page down
 -   |  page up
@@ -176,7 +191,7 @@ def view_list(list_items, page_size=SCREEN_MAX_LINES-4, pick_confirm=True, pick_
         print("_"*len(list(controls))) # seperator between controls and items
         if not readonly: 
             print(controls.format(current_page+1))
-            user_navigation = input("pick(1-{0})|pg:{1}".format(len(pages[current_page]), current_page))
+            user_navigation = input("pg:{1}|pick(1-{0})".format(len(pages[current_page]), current_page))
         elif readonly:
             user_navigation = input(controls.format(current_page+1))
 
